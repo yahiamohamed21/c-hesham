@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<head>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Contact Us</title>
+    <style>
+       *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: serif;
+       } 
+    .contact{
+        position: relative;
+        min-height: 100vh;
+        padding: 50px 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-image: url(../images/contact.jpg);
+        background-size: 100% 100%;
+        background-attachment: fixed; 
+        background-position: center;
+        background-repeat: no-repeat;
+       }
+
+
+       .contact .content{
+        max-width: 800px;
+        text-align: center;
+       }
+
+       .contact .content h2{
+        font-size: 40px;
+        font-weight: 500;
+        color: #fff;
+        margin-top: -183px;
+
+       }
+
+
+
+
+       .contact .content p{
+        font-size: 20px;
+        font-weight: 500;
+        color: #fff;
+ 
+       }
+
+       .container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+       }
+
+
+       .container .contactinfo{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+       }
+
+       .container .contactinfo .box{
+        position: relative;
+        padding: 26px 0px;
+        display: flex ;
+        }
+
+        .container .contactinfo .box .icon{
+            min-width: 60px;
+            height: 60px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50px;
+            font-size: 22px;
+        }
+        .container .contactinfo .box .text{
+            display: flex;
+            margin-left: 20px;
+            font-size: 19px;
+            color: #ffffff;
+            flex-direction: column;
+            font-weight: 300;
+        }
+
+
+        .container .contactinfo .box .text h3{
+         font-weight: 500;
+         color: #1ea8cb;
+        }
+ 
+
+        .contactform{
+            width: 27%;
+            padding: 40px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 20px;
+ 
+        }
+
+        .contactform h2{
+            font-size: 30px;
+            color:black;
+            font-weight: 500;
+        }
+
+        .contactform  .inputbox{
+         position: relative;
+         width:100% ;
+         margin-top: 10px;
+        }
+
+        .contactform  .inputbox input ,
+        .contactform  .inputbox   textarea
+        {
+           width: 100%;
+           padding: 5px 0;
+           font-size: 16px;
+           margin:10px 0;
+           border: none;
+           border-bottom: 2px solid #333;
+           outline: none;
+           resize: none;
+        }
+
+        .contactform  .inputbox span{
+            position:  absolute;
+            left:0px;
+            padding: 5px 0;
+            font-size: 16px;
+            margin: 10px;
+            pointer-events: none;
+            transition: 0.5s;
+            color: #666;
+
+              
+ 
+        }
+
+        .contactform  .inputbox input:hover~span,
+        .contactform  .inputbox input:valid~span,
+        .contactform  .inputbox textarea:focus~span,
+        .contactform  .inputbox textarea:valid~span
+        
+        {
+             color:#e91e63;
+             font-size: 12px;
+             transform: translateY(-10px);
+             /* bottom: 25px; */
+        }
+
+        .contactform  .inputbox input[type="submit"]{
+         
+             width: 100px;
+             background-color: #1ea8cb;
+             color: #fff;
+             cursor: pointer;
+             border: none;
+             padding: 10px;
+             font-size: 18px;
+             border-radius: 15px;
+        }
+
+         .submit :hover   {
+        color:#1ea8cb ;
+        background-color: white;  
+        width:30px;
+        transition: 0.3s;
+
+         }
+
+
+
+
+@media(max-width:991px){
+    .contact{
+        padding: 50px;
+    }
+      .container{
+        flex-direction: column;
+      } 
+      .container .contactinfo{
+          margin-bottom: 40px;
+}
+      .container .contactinfo ,.contactform{
+        width: 100%;
+}
+}    </style>
+
+</head>
+<body>
+    <form class="contact">
+     <div class="content">
+        <h2>CONTACT US</h2>
+        <p>Like I mentioned above, a Contact Us page is one of the most valuable pages .</p>
+     </div>
+     <div class="container">
+        <div class="contactinfo">
+               
+            <div class="box">
+             <div class="icon"><i class='bx bx-map'></i>
+             </div> 
+             <div class="text">
+               <h3>ADDRESS</h3>
+               <P>Egypt-Fayoum,<br>H2 GYM<br></P>
+            </div>
+        </div>
+
+            <div class="box">
+             <div class="icon"><i class='bx bxs-phone-call' ></i>  
+             </div> 
+              <div class="text">
+               <h3>Phone Number</h3>
+               <P>+20 102 869 1003</P>
+            </div></div>
+
+            <div class="box">
+             <div class="icon"><i class='bx bxs-envelope' ></i>  </div> 
+            <div class="text">
+               <h3>Email</h3>
+               <P> yahiaa625@icloud.com </P>
+            </div>
+        </div>
+        </div>
+
+
+
+
+<div class="contactform">
+<form>
+
+
+<h2>Send Message</h2>
+<div class="inputbox">
+<input type="text" required >
+<span>Full name</span>
+</div>
+
+
+<div class="inputbox">
+<input type="text" required >
+<span>Email</span>
+</div>
+
+
+<div class="inputbox">
+<textarea required></textarea>
+ <span>Type your message...</span>
+</div>
+
+
+<div class="inputbox">
+<input class="submit" type="submit">
+</div>
+</form>
+
+
+
+
+
+        </div>
+     </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<HTML>
+<head>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"><meta charest="UTF-8">
+<link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+<meta name="viewport" content="width=device-width,initial-sxale=1.0">
+<link rel="stylesheet" href="./style.css" />
+<title>Quiz page</title>
+<style>
+
+
+input[type="radio"]{
+     display:  none;
+}
+
+
+label{
+    position: relative;
+    color:#f9ac54 ;
+    font-family: 'poppins', sans-serif;
+    font-size: 17px;
+    border: 2px solid #d79447 ;
+    border-radius: 40px;
+    padding: 13px 20px;
+    display: flex;
+    align-items: center;
+   width: 60%;
+   cursor: pointer;
+}
+
+label:before{
+ 
+    content:"";
+    height: 20px;
+    width: 20px;
+    border: 3px solid #d79447;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+
+input[type="radio"]:checked+label {
+    background-color: #d79447 ;
+    color: white;
+
+ }
+
+input[type="radio"]:checked+label:before {
+height: 16px;
+width: 16px;
+border: 10px solid  white;
+background-color:  #d79447 ;
+
+}
+
+
+
+.inputbox   textarea
+        {
+        width: 50%;
+        padding: 10px 10px;
+        font-size: 15px;
+        margin: 10px 0;
+        border: none;
+        border-bottom: 2px solid #333;
+        outline: none;
+        resize: none;
+        border-radius: 10px;
+        }
+
+        input[type="textarea"]
+        {
+        width: 100%;
+        padding: 5px 0;
+        font-size: 16px;
+        margin:10px 0;
+        border: none;
+        border-bottom: 2px solid #333;
+        outline: none;
+        resize: none;
+        }
+
+
+        .submit{
+        width: 1200px;
+        background-color:#f9ac54;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 15px;
+        }
+
+    .submit :hover{
+    color:#1ea8cb ;
+    background-color: white; 
+    width:900px;
+    transition: 0.3s;
+
+    }
+
+    p{ 
+        font-size: 18px;
+        font-weight: 1000;
+    }
+  :root{
+--primary-color:#111317;
+--primary-color-light:#1f2125;
+--primary-color-extra-light:#35373b;
+--secondary-color:#f9ac54;
+--secondary-color-dark:#d79447;
+--text-light:#d1d5db;
+--white:#ffffff;
+--max-width:1200px;
+} 
+body{
+    background-color:#0ce4fe;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.all{
+    background-color: rgb(34 25 57) ;
+    border-radius: 20px;
+    height: 101%;
+} */
+</style>
+</head>
+<body>
+
+<div class=" container m-auto  all  text-white br-3">
+    <div >
+    <h1>Online Coaching Question  : </h1>
+    <p> Notice : You Choose Answer be carfull</p>
+   
+    <P>1-Do you want diet plan To be 4 or 5 meals per day ? </P>
+   
+    <input id="4" type="radio" name ="radio"  value="4" />
+    <label  for="4"> I prefer 4 meals </label>
+    <br>
+    <input id="5" type="radio" name ="radio"  value="5" />
+    <label  for="5"> I prefer 5 meals </label>
+    <hr>
+    </div>
+
+
+    <div>
+    <P>2-Do you have any allergies or food you dislike so that we don't put it in our diet plan ? </P>
+   
+    <input id="1" type="radio" name ="have"  value="1" />
+    <label  for="1">i don't have anything</label>
+    <br>
+    <input id="2" type="radio" name ="have"  value="2" />
+    <label  for="2">i have </label>
+    <hr>
+    </div>
+
+
+
+    <div >
+    <P>3 -Your history in the gym ,How long have you been training ?</P>
+  
+    <input id="6" type="radio" name ="month"  value=" 6" />
+    <label  for="6">1 to 3 months</label>
+    <br>
+
+    <input id="8" type="radio" name ="month"  value="8" />
+    <label  for="8">3 to 6 month</label>
+    <br>
+
+    <input id="9" type="radio" name ="month"  value="9" />
+    <label  for="9">6 to 12 months</label>
+    <br>
+
+    <input id="10" type="radio" name ="month"  value="10" />
+    <label  for="10">More Than 1 year</label>
+    <br>
+    <input id="100" type="radio" name ="month"  value="100" />
+    <label  for="100">More Than 3 year</label>
+    <hr>
+    </div>
+
+
+
+    <div>
+    <P>4-Do You Have Any Supplements ?</P>
+    
+    <input id="11" type="radio" name ="supp"  value="11" />
+    <label  for="11"> I prefer supplement</label>
+    <br>
+
+    <input id="12" type="radio" name ="supp"  value="12" />
+    <label  for="12">idon't prefer supplement</label>
+    <hr>
+    </div>
+   
+    <div>
+    <P>5-Chooce From Following Options Your Favourite Type Carbs To Be In Your Diet Plan  </P>
+ 
+    <input id="13" type="radio" name ="carb "  value="13" />
+    <label  for="13">Rice</label>
+    <br>
+
+    <input id="14" type="radio" name =" carb"  value="14" />
+    <label  for="14">Potatos</label>
+    <br>
+
+    <input id="15" type="radio" name ="carbs"  value="15" />
+    <label  for="15">Sweet Potatos</label>
+    <br>
+
+    <input id="16" type="radio" name ="carbss"  value="16" />
+    <label  for="16" >Pasta </label>
+    <br>
+
+    <input id="17" type="radio" name ="carbsss"  value="17" />
+    <label  for="17" >Cerelac rice  </label>
+    <br>
+
+    <input id="18" type="radio" name ="carb s"  value="18" />
+    <label  for="18" >Rice cakes Sante </label>
+    <hr>
+    </div>
+
+
+    <div>
+        <P>6-Chooce From Following Options Your Favourite Type Protien To Be In Your Diet Plan  ?</P>
+        
+        <input id="19" type="radio" name ="pro "  value="19" />
+        <label  for="19">Chicken Breasts</label>
+        <br>
+
+        <input id="20" type="radio" name =" pro"  value="20" />
+        <label  for="20">Steak  or Lean Red Meat</label>
+        <br>
+
+        <input id="21" type="radio" name ="pros"  value="21" />
+        <label  for="21">Fish </label>
+        <br>
+
+        <input id="22" type="radio" name ="pross"  value="22" />
+        <label  for="22" >Salmon </label>
+        <br>
+
+        <input id="23" type="radio" name ="pros1"  value="23" />
+        <label  for="23" >  Shrimps  </label>
+        <br>
+
+        <input id="24" type="radio" name ="pro2"  value="24" />
+        <label  for="24" >Turkey Breasts</label>
+
+
+    <hr>
+    </div>
+
+    <div>
+        <P>7-Chooce From Following Options Your Favourite Type Fats To Be In Your Diet Plan  ?</P>
+        
+        <input id="25" type="radio" name ="fats "  value="25" />
+        <label  for="25"> Almonds</label>
+        <br>
+
+        <input id="26" type="radio" name =" fats"  value="26" />
+        <label  for="26">Cashews</label>
+        <br>
+
+        <input id="28" type="radio" name ="fats1"  value="28" />
+        <label  for="28">Peanuts </label>
+        <br>
+
+        <input id="29" type="radio" name ="fats2"  value="29" />
+        <label  for="29" >Avocados </label>
+        <br>
+
+        <input id="30" type="radio" name ="fats3"  value="30" />
+        <label  for="30" > Almond butter or cashews butter  </label>
+        <br>
+
+        <input id="31" type="radio" name ="fats33"  value="31" />
+        <label  for="31" > Dark Chocolate </label>
+
+
+    <hr>
+    </div>
+    <div>   
+    <P>8-Chooce From Following Options Your Favourite Type Veggies To Be In Your Diet Plan  ?</P>
+        
+    <input id="32" type="radio" name ="veg "  value="32" />
+    <label  for="32"> Grren Beans</label>
+    <br>
+
+    <input id="33" type="radio" name ="v eg"  value="33" />
+    <label  for="33">Boroccli</label>
+    <br>
+
+    <input id="34" type="radio" name ="ve g"  value="34" />
+    <label  for="34">Spinach </label>
+    <br>
+
+    <input id="35" type="radio" name =" veg"  value="35" />
+    <label  for="35" >Salad </label>
+    <br>
+
+    <input id="36" type="radio" name ="veg22"  value="36" />
+    <label  for="36" >  Cucumber  </label>
+    <br>
+
+    <input id="37" type="radio" name ="veg33"  value="37" />
+    <label  for="37" >Zucchini</label>
+    <br>
+
+    <input id="38" type="radio" name ="veg3"  value="38" />
+    <label  for="38" >Peas</label>
+
+
+<hr>
+</div>
+   
+<div>   
+    <P>9-Chooce From Following Options Your Favourite Type Fruits To Be In Your Diet Plan  ?</P>
+        
+    <input id="39" type="radio" name ="fru1"  value="39" />
+    <label  for="39">Apple</label>
+    <br>
+
+    <input id="40" type="radio" name ="fru2"  value="40" />
+    <label  for="40">Blueberries</label>
+    <br>
+
+    <input id="41" type="radio" name ="fru3"  value="41" />
+    <label  for="41">Rasperries </label>
+    <br>
+
+    <input id="42" type="radio" name ="fru4"  value="42" />
+    <label  for="42" >Blackberries </label>
+    <br>
+
+    <input id="43" type="radio" name ="fru44"  value="43" />
+    <label  for="43" >  Strawberry  </label>
+    <br>
+
+    <input id="44" type="radio" name ="fru5"  value="44" />
+    <label  for="44" >Pineable</label>
+    <br>
+
+    <input id="45" type="radio" name ="fru55"  value="45" />
+    <label  for="45" >Banana</label>
+    <br>
+
+    <input id="46" type="radio" name ="fru555"  value="46" />
+    <label  for="46" >Watermelon</label>
+    <br>
+
+    <input id="47" type="radio" name ="fru6"  value="47" />
+    <label  for="47" >Cantalop</label>
+    <br>
+
+    <input id="48" type="radio" name ="fru66"  value="48" />
+    <label  for="48" >Mangos</label>
+    <br>
+
+    <input id="49" type="radio" name ="fru666"  value="49" />
+    <label  for="49" >Dates</label>
+    <br>
+
+    <input id="50" type="radio" name ="fru6666"  value="50" />
+    <label  for="50" >Kiwi</label>
+
+ 
+
+
+<hr>
+</div>
+
+    <div>
+    <P>10- Do you want the 3 Meals  in the Middle to be the same in protiens
+        ,carbs and veggies OR you wanna Mix the  </P>
+    <input id="52" type="radio" name ="pref"  value="52" />
+    <label  for="52"> I prefer that </label>
+    <br>
+
+    <input id="53" type="radio" name ="pref"  value="53" />
+    <label  for="53"> I don't like </label>
+    <hr>
+    </div>
+
+
+
+    <div class="inputbox">
+    <P>11-Do you Hane Injuries ? </P>
+    <div class="mb-5">
+        <input type="text" class="form-control border-success" id="exampleFormControlInput1" placeholder=" Enter Your Answer">
+      </div>
+    <hr>
+    </div>
+
+     <P> 12-Protien Options on Breakfast And dinner:Eggs Or Tuna Light or Cottage Chesee  OR
+    lanshun  turkey or favabean Califorina Gardens  : choose what to be in breakfast and what to be in dinner ?
+        
+    </P>
+
+    <input id="444" type="radio" name ="opt"  value="444" />
+    <label  for="444"> I want Protien In Breakfast </label>
+    <br>
+
+    <input id="333" type="radio" name ="opt"  value="333" />
+    <label  for="333"> I  Want protien in Dinner</label>
+    <br>
+
+    <input id="555" type="radio" name ="opt"  value="555" />
+    <label  for="555"> I  Want protien in Dinner And Dinner</label>
+
+    <hr>
+    
+
+ <h4> You Can Choose More Than One Option</h4>
+
+<ul><p>
+    <li>Please  Make Sure That The Type  Of Food 
+        You Choose Will Be The Easiest For You
+        To make It Everyday to be Added To Your Diet Plan.
+    </li>
+
+    <li>
+    Please Make Sure That  Your Answers  Are Written Not Any Question  .
+    </li>
+
+    <li>
+    <h5>
+Please If You Have Any Question  Regarding The Plan Make Sure To Be
+Written In Points  To Be Answered As Soon As Possible.
+    </h5></p>
+<h6>Thank you </h6>
+    </li>
+</ul>
+
+
+                                                    <!-- model submit -->
+
+<div class="row">
+   <!-- Button to open the modal -->
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+    Save Answer
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalLabel">Save Your Answer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-dark">
+                <h5 >Are you sure  Want to Save the Answer?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="saveAnswerButton">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+<script sec="../js/popper.min.js"></script>
+<script src="../js/jquery-3.7.1.js"></script>
+<script src="../js/bootstrap.js"></script>
+
+
+
+</body>
+</HTML>

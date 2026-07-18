@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C. HESHAM — Forge Your Frame</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#101214;
+  --bg-alt:#17191c;
+  --surface:#1c1f23;
+  --surface-2:#22262b;
+  --text:#EDEEF0;
+  --text-dim:#9AA0A6;
+  --accent:#FF4425;
+  --accent-soft:rgba(255,68,37,.14);
+  --steel:#C9CDD3;
+  --line:rgba(255,255,255,.09);
+  --shadow: 0 20px 60px rgba(0,0,0,.45);
+  --radius: 4px;
+}
+html[data-theme="light"]{
+  --bg:#F1F2F4;
+  --bg-alt:#E7E9EC;
+  --surface:#FFFFFF;
+  --surface-2:#F6F7F8;
+  --text:#14171A;
+  --text-dim:#5B6169;
+  --accent:#E6391B;
+  --accent-soft:rgba(230,57,27,.10);
+  --steel:#3C4147;
+  --line:rgba(20,23,26,.10);
+  --shadow: 0 20px 50px rgba(20,23,26,.10);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Manrope',sans-serif;
+  overflow-x:hidden;
+  transition:background .5s ease,color .5s ease;
+}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+ul{list-style:none;}
+
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--accent);
+  display:inline-flex;
+  align-items:center;
+  gap:.6em;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--accent);display:inline-block;}
+
+h1,h2,h3,h4{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  letter-spacing:.01em;
+  line-height:1.02;
+  text-transform:uppercase;
+}
+.section-header{
+  font-size:clamp(2rem,4.5vw,3.4rem);
+  margin-bottom:.6rem;
+}
+.section-sub{
+  color:var(--text-dim);
+  max-width:560px;
+  font-size:1rem;
+  line-height:1.6;
+}
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 clamp(1.25rem,4vw,2.5rem);
+}
+section{position:relative;padding:6.5rem 0;}
+
+::selection{background:var(--accent);color:#fff;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001s !important; transition-duration:.001s !important;}
+}
+
+/* ============ LOADER ============ */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:#101214;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6rem;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+#loader.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.load-mark{
+  font-family:'Anton',sans-serif;
+  color:#EDEEF0;
+  font-size:clamp(1.6rem,5vw,2.4rem);
+  letter-spacing:.06em;
+}
+.load-mark span{color:var(--accent);}
+.barbell{
+  display:flex;align-items:center;gap:0;
+  width:min(320px,70vw);
+}
+.plate{width:14px;height:34px;background:#3a3f45;border-radius:2px;flex-shrink:0;transition:background .3s ease, height .3s ease;}
+.plate.big{height:46px;width:18px;}
+.bar{flex:1;height:4px;background:#3a3f45;position:relative;overflow:hidden;border-radius:2px;}
+.bar-fill{position:absolute;left:0;top:0;bottom:0;width:0%;background:var(--accent);transition:width .25s linear;}
+.load-pct{
+  font-family:'IBM Plex Mono',monospace;
+  color:#7d8388;font-size:.75rem;letter-spacing:.2em;
+}
+
+/* ============ NAV ============ */
+header.nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  backdrop-filter:blur(14px);
+  background:color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom:1px solid var(--line);
+  transition:background .5s ease,border-color .5s ease;
+}
+.nav-inner{
+  max-width:1180px;margin:0 auto;padding:1.1rem clamp(1.25rem,4vw,2.5rem);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  font-family:'Anton',sans-serif;font-size:1.25rem;letter-spacing:.05em;
+}
+.logo span{color:var(--accent);}
+.nav-links{display:flex;gap:2.2rem;align-items:center;font-size:.88rem;font-weight:600;}
+.nav-links a{position:relative;padding:.2rem 0;color:var(--text);}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--accent);
+  transition:width .3s ease;
+}
+.nav-links a:hover::after{width:100%;}
+.nav-actions{display:flex;align-items:center;gap:1rem;}
+.theme-toggle{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface);
+  transition:transform .4s cubic-bezier(.2,1.6,.4,1), background .3s ease;
+  position:relative;
+}
+.theme-toggle:hover{transform:rotate(180deg);}
+.theme-toggle i{font-size:1rem;color:var(--accent);}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.85rem 1.7rem;
+  background:var(--accent);color:#fff;
+  font-weight:700;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;
+  border-radius:2px;
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+  box-shadow:0 8px 24px var(--accent-soft);
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px var(--accent-soft);}
+.btn-ghost{
+  background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none;
+}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);}
+.burger{display:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);align-items:center;justify-content:center;background:var(--surface);}
+
+/* ============ HERO ============ */
+.hero{
+  padding:11rem 0 6rem;
+  position:relative;overflow:hidden;
+}
+.hero-stripes{
+  position:absolute;inset:0;z-index:0;opacity:.5;pointer-events:none;
+}
+.hero-stripes .s{
+  position:absolute;height:200%;width:60px;
+  background:linear-gradient(180deg, transparent, var(--accent-soft), transparent);
+  transform:rotate(18deg);
+  top:-50%;
+  animation:drift 14s linear infinite;
+}
+.hero-stripes .s:nth-child(1){left:8%;animation-duration:16s;}
+.hero-stripes .s:nth-child(2){left:38%;animation-duration:22s;}
+.hero-stripes .s:nth-child(3){left:70%;animation-duration:19s;}
+.hero-stripes .s:nth-child(4){left:88%;animation-duration:25s;}
+@keyframes drift{
+  0%{transform:translateY(-4%) rotate(18deg);}
+  50%{transform:translateY(4%) rotate(18deg);}
+  100%{transform:translateY(-4%) rotate(18deg);}
+}
+.hero-inner{position:relative;z-index:1;max-width:900px;}
+.hero h1{
+  font-size:clamp(2.8rem,7.5vw,5.6rem);
+  margin:1rem 0 1.4rem;
+  overflow:hidden;
+}
+.hero h1 .line{display:block;overflow:hidden;}
+.hero h1 .line span{
+  display:block;transform:translateY(110%);
+  animation:riseUp .9s cubic-bezier(.2,.8,.2,1) forwards;
+}
+.hero h1 .line:nth-child(1) span{animation-delay:.15s;}
+.hero h1 .line:nth-child(2) span{animation-delay:.30s;color:var(--accent);}
+@keyframes riseUp{to{transform:translateY(0);}}
+
+.hero p.lead{
+  color:var(--text-dim);max-width:520px;font-size:1.05rem;line-height:1.75;margin-bottom:2.2rem;
+  opacity:0;animation:fadeUp .8s ease forwards;animation-delay:.6s;
+}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease forwards;animation-delay:.75s;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+.stat-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;margin-top:4.5rem;max-width:760px;
+  border-top:1px solid var(--line);padding-top:2rem;
+  opacity:0;animation:fadeUp .8s ease forwards;animation-delay:.9s;
+}
+.stat b{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(1.6rem,3vw,2.2rem);color:var(--text);display:block;
+}
+.stat span{font-size:.78rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-stagger > *{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-stagger.in > *{opacity:1;transform:translateY(0);}
+.reveal-stagger.in > *:nth-child(1){transition-delay:.05s;}
+.reveal-stagger.in > *:nth-child(2){transition-delay:.15s;}
+.reveal-stagger.in > *:nth-child(3){transition-delay:.25s;}
+.reveal-stagger.in > *:nth-child(4){transition-delay:.35s;}
+
+/* ============ PROGRAMS ============ */
+.programs-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem;
+}
+.pcard{
+  background:var(--surface);border:1px solid var(--line);padding:2.2rem 1.6rem;border-radius:var(--radius);
+  transition:transform .35s ease, border-color .35s ease, background .35s ease;
+  position:relative;overflow:hidden;
+}
+.pcard::before{
+  content:"";position:absolute;left:0;top:0;height:3px;width:0%;background:var(--accent);
+  transition:width .4s ease;
+}
+.pcard:hover::before{width:100%;}
+.pcard:hover{transform:translateY(-8px);border-color:var(--accent);}
+.pcard i{font-size:1.9rem;color:var(--accent);margin-bottom:1.4rem;display:block;}
+.pcard h4{font-size:1.15rem;margin-bottom:.7rem;letter-spacing:.02em;}
+.pcard p{color:var(--text-dim);font-size:.88rem;line-height:1.6;}
+
+/* ============ PRICING ============ */
+.price-tabs{display:flex;gap:.6rem;margin:2rem 0 2.5rem;}
+.ptab{
+  padding:.6rem 1.3rem;border:1px solid var(--line);border-radius:30px;font-size:.82rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--text-dim);transition:all .3s ease;
+}
+.ptab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.price-set{display:none;}
+.price-set.active{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.price-card{
+  background:var(--surface);border:1px solid var(--line);padding:2.4rem 1.8rem;border-radius:var(--radius);
+  display:flex;flex-direction:column;gap:1.6rem;transition:transform .35s ease,border-color .35s ease;
+  position:relative;
+}
+.price-card.featured{border-color:var(--accent);background:linear-gradient(180deg,var(--surface),var(--surface-2));}
+.price-card.featured::after{
+  content:"MOST BOOKED";position:absolute;top:-1px;right:-1px;background:var(--accent);color:#fff;
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;padding:.4rem .7rem;
+}
+.price-card:hover{transform:translateY(-6px);}
+.price-card h4{font-size:1.05rem;color:var(--text-dim);font-weight:700;font-family:'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.06em;}
+.price-card .amount{font-family:'Anton',sans-serif;font-size:2.6rem;}
+.price-card .amount sup{font-family:'IBM Plex Mono',monospace;font-size:.9rem;color:var(--text-dim);}
+.price-card ul{display:flex;flex-direction:column;gap:.8rem;flex:1;}
+.price-card ul li{display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--text);}
+.price-card ul li i{color:var(--accent);}
+
+/* ============ CLASS / SPLIT ============ */
+.split{display:grid;grid-template-columns:.95fr 1.05fr;gap:3.5rem;align-items:center;}
+.split.reverse{grid-template-columns:1.05fr .95fr;}
+.split.reverse .split-visual{order:2;}
+.split-visual{
+  position:relative;aspect-ratio:1/1;border-radius:6px;overflow:hidden;
+  background:linear-gradient(155deg,var(--surface-2),var(--surface));
+  border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+}
+.split-visual svg{width:70%;height:70%;}
+.split-visual .tag{
+  position:absolute;bottom:1.2rem;left:1.2rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.12em;color:var(--text-dim);
+  border:1px solid var(--line);padding:.4rem .7rem;background:var(--bg);
+}
+.split-content p{color:var(--text-dim);line-height:1.8;margin:1.2rem 0 1.8rem;font-size:1rem;}
+
+/* ============ WHY JOIN ============ */
+.join-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem;}
+.jcard{
+  background:var(--surface);border:1px solid var(--line);padding:2rem;border-radius:var(--radius);
+  display:flex;gap:1.2rem;align-items:flex-start;transition:border-color .3s ease, transform .3s ease;
+}
+.jcard:hover{border-color:var(--accent);transform:translateY(-4px);}
+.jcard i{font-size:1.5rem;color:var(--accent);margin-top:.15rem;}
+.jcard h4{font-size:1rem;margin-bottom:.4rem;letter-spacing:.02em;}
+.jcard p{color:var(--text-dim);font-size:.86rem;line-height:1.5;}
+
+/* ============ REVIEW ============ */
+.review-sec{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.review-box{max-width:720px;margin:0 auto;text-align:center;}
+.review-box i.quote{font-size:2.5rem;color:var(--accent);margin-bottom:1.2rem;}
+.review-box p{font-size:1.25rem;line-height:1.7;font-family:'Manrope',sans-serif;font-weight:500;}
+.stars{margin-top:1.4rem;color:var(--accent);font-size:1.1rem;display:flex;justify-content:center;gap:.3rem;}
+.review-name{margin-top:1.4rem;font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.1em;color:var(--text-dim);text-transform:uppercase;}
+
+/* ============ CONTACT ============ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+.field{margin-bottom:1.1rem;}
+.field input,.field textarea{
+  width:100%;padding:.95rem 1rem;background:var(--surface);border:1px solid var(--line);color:var(--text);
+  border-radius:2px;font-family:'Manrope',sans-serif;font-size:.92rem;transition:border-color .3s ease;
+}
+.field input:focus,.field textarea:focus{border-color:var(--accent);outline:none;}
+.field textarea{resize:vertical;min-height:120px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.contact-info h3{font-size:1.7rem;margin-bottom:1rem;}
+.contact-info p{color:var(--text-dim);line-height:1.7;margin-bottom:1rem;}
+
+/* ============ FOOTER ============ */
+footer{padding:5rem 0 2rem;border-top:1px solid var(--line);}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;}
+.footer-grid h4{font-family:'Manrope',sans-serif;font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.1rem;color:var(--text-dim);}
+.footer-grid a{display:block;font-size:.9rem;margin-bottom:.7rem;color:var(--text);transition:color .2s ease;}
+.footer-grid a:hover{color:var(--accent);}
+.f-logo{font-family:'Anton',sans-serif;font-size:1.4rem;margin-bottom:1rem;}
+.f-logo span{color:var(--accent);}
+.footer-grid p{color:var(--text-dim);font-size:.88rem;line-height:1.7;max-width:320px;margin-bottom:1.4rem;}
+.socials{display:flex;gap:.8rem;}
+.socials a{
+  width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0;
+}
+.socials a:hover{border-color:var(--accent);}
+.footer-bar{
+  margin-top:3.5rem;padding-top:1.6rem;border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--text-dim);text-align:center;letter-spacing:.05em;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:980px){
+  .programs-grid{grid-template-columns:repeat(2,1fr);}
+  .price-set.active{grid-template-columns:1fr;}
+  .split,.split.reverse{grid-template-columns:1fr;}
+  .split.reverse .split-visual{order:0;}
+  .join-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .stat-row{grid-template-columns:repeat(3,1fr);}
+}
+@media (max-width:720px){
+  .nav-links{
+    position:fixed;top:0;right:0;height:100vh;width:78vw;max-width:320px;
+    background:var(--bg);flex-direction:column;justify-content:center;align-items:flex-start;
+    padding:2rem;gap:1.6rem;border-left:1px solid var(--line);
+    transform:translateX(100%);transition:transform .4s ease;z-index:600;
+  }
+  .nav-links.open{transform:translateX(0);}
+  .burger{display:flex;}
+  .nav-actions .btn-ghost{display:none;}
+  .programs-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .row2{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ LOADER ============ -->
+<div id="loader">
+  <div class="load-mark">FORGING<span>.</span></div>
+  <div class="barbell">
+    <div class="plate big"></div><div class="plate"></div>
+    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+    <div class="plate"></div><div class="plate big"></div>
+  </div>
+  <div class="load-pct" id="loadPct">00%</div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">C.<span>HESHAM</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#pricing">Plans</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
+        <i class="ri-moon-fill" id="themeIcon"></i>
+      </button>
+      <a href="#contact" class="btn btn-ghost">Log In</a>
+      <a href="#pricing" class="btn">Join Now</a>
+      <button class="burger" id="burger" aria-label="Open menu"><i class="ri-menu-3-line"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-stripes"><span class="s"></span><span class="s"></span><span class="s"></span><span class="s"></span></div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Coach C. Hesham — Personal Performance Coaching</span>
+    <h1>
+      <span class="line"><span>Forge the Body</span></span>
+      <span class="line"><span>You Command</span></span>
+    </h1>
+    <p class="lead">
+      Structured strength programming, honest nutrition guidance, and a coach who
+      shows up every session. No shortcuts — just a plan built around your body,
+      your goals, and the discipline to see it through.
+    </p>
+    <div class="hero-ctas">
+      <a href="#pricing" class="btn">Start Training <i class="ri-arrow-right-up-line"></i></a>
+      <a href="#programs" class="btn btn-ghost">View Programs</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><b data-count="500">0</b><span>Athletes Trained</span></div>
+      <div class="stat"><b data-count="12">0</b><span>Years Coaching</span></div>
+      <div class="stat"><b data-count="98">0</b><span>% Success Rate</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section id="programs">
+  <div class="wrap">
+    <span class="eyebrow reveal">Explore</span>
+    <h2 class="section-header reveal">Our Programs</h2>
+    <p class="section-sub reveal">Four paths, one standard: measurable progress, tracked every week.</p>
+    <div class="programs-grid reveal-stagger">
+      <div class="pcard">
+        <i class="ri-boxing-fill"></i>
+        <h4>Strength</h4>
+        <p>Progressive overload programming built to raise your working numbers safely, session over session.</p>
+      </div>
+      <div class="pcard">
+        <i class="ri-heart-pulse-fill"></i>
+        <h4>Physical Fitness</h4>
+        <p>Conditioning work that builds endurance and mobility so daily life feels lighter, not just the gym.</p>
+      </div>
+      <div class="pcard">
+        <i class="ri-run-fill"></i>
+        <h4>Fat Loss</h4>
+        <p>A calorie and training strategy built around your schedule — sustainable, not punishing.</p>
+      </div>
+      <div class="pcard">
+        <i class="ri-shopping-basket-fill"></i>
+        <h4>Weight Gain</h4>
+        <p>Structured surplus and hypertrophy training for lean, controlled mass gain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="wrap">
+    <span class="eyebrow reveal">Membership</span>
+    <h2 class="section-header reveal">Our Pricing Plan</h2>
+    <p class="section-sub reveal">Every tier includes real coaching contact — pick the commitment that fits your goal.</p>
+
+    <div class="price-tabs reveal">
+      <button class="ptab active" data-tab="guided">Guided Program</button>
+      <button class="ptab" data-tab="elite">Elite Program</button>
+    </div>
+
+    <div class="price-set active" id="guided">
+      <div class="price-card">
+        <h4>3 Month Plan</h4>
+        <div class="amount">1500<sup> EGP</sup></div>
+        <ul>
+          <li><i class="ri-checkbox-circle-line"></i>Nutrition plan</li>
+          <li><i class="ri-checkbox-circle-line"></i>Exercise in gym</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost" style="justify-content:center;">Join Now</a>
+      </div>
+      <div class="price-card featured">
+        <h4>6 Month Plan</h4>
+        <div class="amount">2500<sup> EGP</sup></div>
+        <ul>
+          <li><i class="ri-checkbox-circle-line"></i>Nutrition plan</li>
+          <li><i class="ri-checkbox-circle-line"></i>Daily follow-up</li>
+          <li><i class="ri-checkbox-circle-line"></i>Exercise in gym</li>
+        </ul>
+        <a href="#contact" class="btn" style="justify-content:center;">Join Now</a>
+      </div>
+      <div class="price-card">
+        <h4>12 Month Plan</h4>
+        <div class="amount">4500<sup> EGP</sup></div>
+        <ul>
+          <li><i class="ri-checkbox-circle-line"></i>Nutrition plan</li>
+          <li><i class="ri-checkbox-circle-line"></i>Daily follow-up</li>
+          <li><i class="ri-checkbox-circle-line"></i>At-home workouts</li>
+          <li><i class="ri-checkbox-circle-line"></i>Exercise in gym</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost" style="justify-content:center;">Join Now</a>
+      </div>
+    </div>
+
+    <div class="price-set" id="elite">
+      <div class="price-card">
+        <h4>3 Month Plan</h4>
+        <div class="amount">2200<sup> EGP</sup></div>
+        <ul>
+          <li><i class="ri-checkbox-circle-line"></i>Advanced nutrition plan</li>
+          <li><i class="ri-checkbox-circle-line"></i>Smart workout plan</li>
+          <li><i class="ri-checkbox-circle-line"></i>At-home workouts</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost" style="justify-content:center;">Join Now</a>
+      </div>
+      <div class="price-card featured">
+        <h4>6 Month Plan</h4>
+        <div class="amount">3600<sup> EGP</sup></div>
+        <ul>
+          <li><i class="ri-checkbox-circle-line"></i>Advanced nutrition plan</li>
+          <li><i class="ri-checkbox-circle-line"></i>Daily follow-up</li>
+          <li><i class="ri-checkbox-circle-line"></i>At-home workouts</li>
+          <li><i class="ri-checkbox-circle-line"></i>Recovery & mobility plan</li>
+        </ul>
+        <a href="#contact" class="btn" style="justify-content:center;">Join Now</a>
+      </div>
+      <div class="price-card">
+        <h4>12 Month Plan</h4>
+        <div class="amount">6200<sup> EGP</sup></div>
+        <ul>
+          <li><i class="ri-checkbox-circle-line"></i>Advanced nutrition plan</li>
+          <li><i class="ri-checkbox-circle-line"></i>Daily follow-up</li>
+          <li><i class="ri-checkbox-circle-line"></i>Smart workout plan</li>
+          <li><i class="ri-checkbox-circle-line"></i>At-home workouts</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost" style="justify-content:center;">Join Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLASS ============ -->
+<section>
+  <div class="wrap split reveal">
+    <div class="split-visual">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="70" stroke="var(--accent)" stroke-width="2" opacity=".5"/>
+        <circle cx="100" cy="100" r="46" stroke="var(--steel)" stroke-width="2" opacity=".6"/>
+        <path d="M40 100 H160 M100 40 V160" stroke="var(--accent)" stroke-width="2"/>
+        <circle cx="100" cy="100" r="8" fill="var(--accent)"/>
+      </svg>
+      <span class="tag">GROUP TRAINING · ON SITE</span>
+    </div>
+    <div class="split-content">
+      <span class="eyebrow">Sessions</span>
+      <h2 class="section-header">The Class You'll Get Here</h2>
+      <p>
+        Coach Hesham builds personalized workout plans around your goals, then coaches
+        every rep with a style that keeps you honest. Training in a group setting adds
+        real accountability — you push harder because the room is pushing with you.
+      </p>
+      <a href="#contact" class="btn">Book a Class</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap split reverse reveal">
+    <div class="split-content">
+      <span class="eyebrow">About Me</span>
+      <h2 class="section-header">Coach Hesham's Training Programs</h2>
+      <p>
+        Welcome — I'm glad you're here. Whether you're starting your fitness journey
+        or chasing a specific goal, I offer expert, tailored guidance to help you get
+        there without guesswork.
+      </p>
+      <div class="collapse" id="collapseExample">
+        <p style="color:var(--text-dim);line-height:1.8;margin-bottom:1.4rem;">
+          Every plan is built around your schedule, your equipment, and your starting
+          point — then adjusted as you progress. Explore the programs below, get in
+          touch, and let's start transforming your fitness together.
+        </p>
+      </div>
+      <a class="btn btn-ghost" data-bs-toggle="collapse" href="#collapseExample" role="button" id="readMoreBtn">
+        Read more
+      </a>
+    </div>
+    <div class="split-visual">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="30" y="80" width="140" height="40" rx="4" stroke="var(--accent)" stroke-width="2"/>
+        <rect x="10" y="70" width="16" height="60" rx="3" fill="var(--accent)"/>
+        <rect x="174" y="70" width="16" height="60" rx="3" fill="var(--accent)"/>
+        <circle cx="100" cy="60" r="18" stroke="var(--steel)" stroke-width="2"/>
+      </svg>
+      <span class="tag">12+ YEARS · CERTIFIED</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY JOIN ============ -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow reveal">Why Us</span>
+    <h2 class="section-header reveal">Why Join C. Hesham</h2>
+    <p class="section-sub reveal">Training with structure and support changes how consistent you actually are.</p>
+    <div class="join-grid reveal-stagger">
+      <div class="jcard">
+        <i class="ri-user-star-fill"></i>
+        <div><h4>Personal Trainer</h4><p>Unlock your potential with one-to-one expert coaching.</p></div>
+      </div>
+      <div class="jcard">
+        <i class="ri-vidicon-fill"></i>
+        <div><h4>Practice Sessions</h4><p>Elevate your fitness with structured, guided practice.</p></div>
+      </div>
+      <div class="jcard">
+        <i class="ri-building-line"></i>
+        <div><h4>Good Management</h4><p>Supportive systems built for your long-term fitness success.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEW ============ -->
+<section class="review-sec">
+  <div class="wrap review-box reveal">
+    <i class="ri-double-quotes-l quote"></i>
+    <p>
+      Coach Hesham fosters a supportive learning environment, encouraging questions
+      and discussions that enhance the whole experience. His knowledge is impressive,
+      and he always connects theory to real-world practice.
+    </p>
+    <div class="stars">
+      <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i>
+    </div>
+    <div class="review-name">— Member Review</div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap contact-grid">
+    <form class="reveal" id="contactForm">
+      <span class="eyebrow">Get In Touch</span>
+      <h2 class="section-header" style="margin-bottom:1.5rem;">Contact Us</h2>
+      <div class="row2">
+        <div class="field"><input type="text" placeholder="Full name" required></div>
+        <div class="field"><input type="email" placeholder="Email" required></div>
+      </div>
+      <div class="field"><textarea placeholder="Your message" required></textarea></div>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+    <div class="contact-info reveal">
+      <h3>More About <span style="color:var(--accent);">Hesham</span></h3>
+      <p>Have a question about a plan, a schedule, or where to start? Send a message and I'll get back to you personally within a day.</p>
+      <p>Prefer a call? Book a free 15-minute consult through the contact form and I'll follow up to set a time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="f-logo">C.<span>HESHAM</span></div>
+      <p>Take the first step toward a stronger you. Structured plans, honest coaching, real results — let's build it together.</p>
+      <div class="socials">
+        <a href="https://www.facebook.com/share/E16VKYi8jVLC7uHz/?mibextid=LQQJ4d" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+        <a href="https://www.instagram.com/hesham.mohamed98?igsh=MWMwb3N6Mmh6Y3gyNg==" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+        <a href="https://youtube.com/@heshammohamed5037?si=Zyowebs8bOViOZgF" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a href="#">Business</a><a href="#">Franchise</a><a href="#">Partnership</a><a href="#">Network</a>
+    </div>
+    <div>
+      <h4>About Coach</h4>
+      <a href="#">Blogs</a><a href="#">Security</a><a href="#">Careers</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="#contact">Contact Us</a><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">BMI Calculator</a>
+    </div>
+  </div>
+  <div class="footer-bar">© 2024 C. HESHAM — Designed by Yahia Mohamed</div>
+</footer>
+
+<script>
+// ---------- LOADER ----------
+(function(){
+  const fill = document.getElementById('barFill');
+  const pct = document.getElementById('loadPct');
+  const loader = document.getElementById('loader');
+  let p = 0;
+  const iv = setInterval(()=>{
+    p += Math.random()*18;
+    if(p >= 100){ p = 100; clearInterval(iv); setTimeout(()=>loader.classList.add('hide'), 350); }
+    fill.style.width = p + '%';
+    pct.textContent = String(Math.floor(p)).padStart(2,'0') + '%';
+  }, 180);
+  window.addEventListener('load', ()=>{
+    if(p < 100){ p = 100; fill.style.width='100%'; pct.textContent='100%'; clearInterval(iv); setTimeout(()=>loader.classList.add('hide'), 300); }
+  });
+})();
+
+// ---------- THEME TOGGLE ----------
+(function(){
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+  function apply(theme){
+    root.setAttribute('data-theme', theme);
+    icon.className = theme === 'dark' ? 'ri-moon-fill' : 'ri-sun-fill';
+  }
+  const saved = 'dark';
+  apply(saved);
+  btn.addEventListener('click', ()=>{
+    const cur = root.getAttribute('data-theme');
+    apply(cur === 'dark' ? 'light' : 'dark');
+  });
+})();
+
+// ---------- MOBILE MENU ----------
+(function(){
+  const burger = document.getElementById('burger');
+  const links = document.getElementById('navLinks');
+  burger.addEventListener('click', ()=> links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> links.classList.remove('open')));
+})();
+
+// ---------- SCROLL REVEAL ----------
+(function(){
+  const els = document.querySelectorAll('.reveal, .reveal-stagger');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  els.forEach(el=> io.observe(el));
+})();
+
+// ---------- COUNTERS ----------
+(function(){
+  const stats = document.querySelectorAll('[data-count]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.dataset.count, 10);
+        let cur = 0;
+        const step = Math.max(1, Math.round(target/40));
+        const iv = setInterval(()=>{
+          cur += step;
+          if(cur >= target){ cur = target; clearInterval(iv); }
+          el.textContent = cur;
+        }, 30);
+        io.unobserve(el);
+      }
+    });
+  }, {threshold:.5});
+  stats.forEach(s=> io.observe(s));
+})();
+
+// ---------- PRICING TABS ----------
+(function(){
+  const tabs = document.querySelectorAll('.ptab');
+  const sets = { guided: document.getElementById('guided'), elite: document.getElementById('elite') };
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      Object.values(sets).forEach(s=>s.classList.remove('active'));
+      sets[tab.dataset.tab].classList.add('active');
+    });
+  });
+})();
+
+// ---------- ABOUT COLLAPSE ----------
+(function(){
+  const panel = document.getElementById('collapseExample');
+  const btn = document.getElementById('readMoreBtn');
+  panel.style.maxHeight = '0px';
+  panel.style.overflow = 'hidden';
+  panel.style.transition = 'max-height .5s ease';
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const open = panel.style.maxHeight !== '0px';
+    panel.style.maxHeight = open ? '0px' : panel.scrollHeight + 'px';
+    btn.textContent = open ? 'Read more' : 'Show less';
+  });
+})();
+
+// ---------- CONTACT FORM (demo) ----------
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const btn = this.querySelector('button[type="submit"]');
+  const original = btn.textContent;
+  btn.textContent = 'Message Sent ✓';
+  this.reset();
+  setTimeout(()=> btn.textContent = original, 2200);
+});
+</script>
+</body>
+</html>
